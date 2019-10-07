@@ -58,7 +58,7 @@ if(isset($_POST["Submit"])){
 	<link rel="stylesheet" href="CSS/Styles.css">
 	
 	
-	<title>Categories</title>
+	<title>Posts</title>
 </head>
 <body>
 	<!-- Navbar -->
@@ -106,7 +106,7 @@ if(isset($_POST["Submit"])){
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<h1><i class="fas fa-edit" style="color:#27aae1;"></i> ManageCategories </h1>
+					<h1><i class="fas fa-edit" style="color:#27aae1;"></i> Add New Post </h1>
 				</div>
 			</div>
 		</div>
@@ -123,13 +123,40 @@ if(isset($_POST["Submit"])){
 			?>
 				<form class="" action="Categories.php" method="post">
 					<div class="card bg-secondary text-light mb-3">
-						<div class="card-header">
-							<h1> Add New Category </h1>
-						</div>
+
 						<div class="card-body bg-dark">
 							<div class="form-group">
-								<label for="title"><span class="FieldInfo"> Category title: </span></label>
-								<input class="form-control" type="text" name="CategoryTitle" id="title" placeholder="Type Title here" value="">
+								<label for="title"><span class="FieldInfo"> Post Title: </span></label>
+								<input class="form-control" type="text" name="PostTitle" id="title" placeholder="Type Title here" value="">
+							</div>
+							<div class="form-group">
+								<label for="CategoryTitle"><span class="FieldInfo"> Choose Category: </span></label>
+								<select class="form-control" id="CategoryTitle" name="Category">
+									
+									<?php 
+										//Fetching all the categories from database
+										
+										$sql = "SELECT id, title FROM category";
+										$stmt = $ConnectingDB->query($sql);
+										
+										while($DataRows = $stmt->fetch()){
+											$Id = $DataRows["id"];
+											$CategoryName = $DataRows["title"];
+										
+									?>
+									<option> <?php echo $CategoryName; ?> </option>
+									<?php } ?>
+								</select>
+							</div>
+							<div class="form-group">
+								<div class="custom-file">
+									<input class="custom-file-input" type="File" name="Image" id="imageSelect" value="">
+									<label for="imageSelect" class="custom-file-label">Select Image</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="Post"><span class="FieldInfo"> Post: </span></label>
+								<textarea class="form-control" id="Post" name="PostDescription" rows="8" cols="80"></textarea>
 							</div>
 							<div class="row">
 								<div class="col-lg-6 mb-2">
