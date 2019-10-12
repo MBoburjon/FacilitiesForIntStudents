@@ -78,10 +78,7 @@
 	
 			<div class="col-sm-8">
 				
-				<?php 
-					echo ErrorMessage();
-					echo SuccessMessage();
-				?>
+			
 				<?php 
 					$ConnectingDB;
 					if(isset($_GET["SearchButton"])){
