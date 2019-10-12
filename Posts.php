@@ -91,7 +91,7 @@
 	<!-- Main Area -->
 	<section class="container py-2 mb-4">
 		<div class="row">
-			<div class="offset-lg-1 col-lg-10" style="min-height:400px;">
+			<div class="col-lg-12">
 				<table class="table table-striped table-hover">
 					<thead class="thead-dark">
 					<tr>
@@ -110,6 +110,7 @@
 						$ConnectingDB;
 						$sql = "SELECT * FROM posts";
 						$stmt = $ConnectingDB->query($sql);
+						$iter = 0;
 						while ($DataRows = $stmt->fetch()){
 							$Id = $DataRows["id"];
 							$DateTime = $DataRows["datetime"];
@@ -118,22 +119,49 @@
 							$Admin = $DataRows["author"];
 							$Image = $DataRows["image"];
 							$PostText = $DataRows["post"];
+						$iter++;
 							
 						
 					?>
 					<tbody>
 					<tr>
-						<td><?php echo $Id ?></td>
-						<td><?php echo $PostTitle ?></td>
-						<td><?php echo $Category ?></td>
-						<td><?php echo $DateTime ?></td>
-						<td><?php echo $Admin ?></td>
-						<td><?php echo $Image ?></td>
+						<td><?php echo $iter ?></td>
+						<td>
+							<?php if(strlen($PostTitle) > 20){
+								$PostTitle = substr($PostTitle, 0, 10)."...";
+							}
+							echo $PostTitle ?>
+						</td>
+						<td>
+							<?php if(strlen($Category) > 7){
+								$Category = substr($Category, 0, 7)."...";
+							}
+							echo $Category ?>
+						</td>
+						<td>
+							<?php if(strlen($DateTime) > 11){
+								$DateTime = substr($DateTime, 0, 11)."...";
+							}
+							echo $DateTime ?>
+						</td>
+						<td>
+							<?php if(strlen($Admin) > 6){
+								$Admin = substr($Admin, 0, 6)."...";
+							}
+							echo $Admin ?>
+						
+						</td>
+						<td><img src="Upload/<?php echo $Image ?>" width="170px;" height="50px"></td>
 						<td> Comments </td>
-						<td> Acion </td>
-						<td> Live Preview </td>
+						<td>
+							<a href="#"><span class="btn btn-warning"> Edit </span></a>
+							<a href="#"><span class="btn btn-danger"> Delete </span></a>					
+						</td>
+						<td> 
+							<a href="#"><span class="btn btn-primary"> Live Preview </span></a> 
+						</td>
 					</tr>
-					<tbody>
+					</tbody>
 					<?php } ?>
 				</table>
 						

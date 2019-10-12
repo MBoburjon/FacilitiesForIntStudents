@@ -1,3 +1,8 @@
+<?php require_once("Includes/DB.php"); ?>
+<?php require_once("Includes/Functions.php"); ?>
+<?php require_once("Includes/Sessions.php"); ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +13,7 @@
 	<link rel="stylesheet" href="CSS/Styles.css">
 	
 	
-	<title>WebApp</title>
+	<title>Blog</title>
 </head>
 <body>
 	<!-- Navbar -->
@@ -22,7 +27,7 @@
 			<div class="collapse navbar-collapse" id="navbarCollapseCMS">
 			<ul class="navbar-nav mr-auto">
 				<li class="navbar-item">
-					<a href="Home.php" class="nav-link"><i class="fas fa-home text-success"></i> Home</a>
+					<a href="Blog.php" class="nav-link"><i class="fas fa-home text-success"></i> Home</a>
 				</li>
 				<li class="navbar-item">
 					<a href="NewDis.php" class="nav-link">News/DiscussionBoard</a>
@@ -42,9 +47,22 @@
 				</li>
 
 			</ul>
+			
+			<ul class="navbar-nav" ml-auto>
+				<form class="form-inline d-none d-sm-block" action="Blog.php" method="post">
+					<div class="form-group">
+						<input class="form-control mr-2" type="text" name="Search" placeholder="Search" value="">
+						<button type="button" class="btn btn-primary" name="SearchButton"> Go </button>
+						
+					</div>
+				</form>
+			</ul>
+			<!--
 			<ul class="navbar-nav" ml-auto>
 				<li class="navbar-itme"><a href="logout.php" class="nav-link"><i class="fas fa-user-times text-danger"></i> Log out</a></li>
-			</ul>
+			</ul> -->
+			
+			
 			</div>
 		</div>
 	</nav>
@@ -52,16 +70,70 @@
 	<!-- Navbar end -->
 	
 	<!-- Header -->
-	<header class="bg-dark text-white py-3">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<h1> Basic </h1>
+	<div class="container">
+		<div class="row mt-4">
+			<!-- Main Area -->
+	
+	
+			<div class="col-sm-8">
+				
+				<?php 
+					$ConnectingDB;
+					
+					$sql = "SELECT * FROM posts ORDER BY id desc";
+					$stmt = $ConnectingDB->query($sql);
+					while($DataRows = $stmt->fetch()){
+						$PostId = $DataRows["id"];
+						$DateTime = $DataRows["datetime"];
+						$PostTitle = $DataRows["title"];
+						$Category = $DataRows["category"];
+						$Author = $DataRows["author"];
+						$Image = $DataRows["image"];
+						$PostDescription = $DataRows["post"];	
+					
+				?>
+				
+				<div class="card">
+					<img src="Upload/<?php echo $Image; ?>" style="max-height:450px;" class="image-fluid card-img-top"/>
+					<div class="card-body">
+						<h4 class="card-title"><?php echo htmlentities($PostTitle) ?></h4>
+						<small class="text-muted">Written by <?php echo htmlentities($Author); ?> On <?php echo htmlentities($DateTime); ?></small>
+						<span style="float:right;" class="badge badge-dark text-light">Comments 20</span>
+						
+						<hr>
+						<p class="card-text">
+							<?php
+								if(strlen($PostDescription) > 150){
+									$PostDescription = substr($PostDescription, 0, 150)."...";
+									
+								}
+								echo htmlentities($PostDescription); 
+							
+							?>
+						</p>
+						<a href="FullPost.php" style="float:right;">
+							<span class="btn btn-info"> Read More >></span>
+						</a>
+					</div>
 				</div>
+					<?php } ?>
 			</div>
+					
+			<!-- End of Main Area -->
+			
+			
+			<!-- Side Area -->
+			<div class="col-sm-4">
+			
+			</div>
+			<!-- End of Side Area -->
+			
 		</div>
-	</header>
+	</div>
+	
 	<!-- End of Header -->
+	
+	
 	
 	<br>
 	<!-- Footer -->

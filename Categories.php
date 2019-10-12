@@ -65,7 +65,7 @@ if(isset($_POST["Submit"])){
 	<div style="height:10px; background:#27aae1;"></div>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container">
-			<a href="#" class="navbar-brand">HelpForStudents</a>
+			<a href="#" class="navbar-brand">ISSPM.com</a>
 			<button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapseCMS">
 				<span class="navbar-toggler-icon"><span>
 			</button>
