@@ -3,6 +3,7 @@
 <?php require_once("Includes/Sessions.php"); ?>
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,10 +50,10 @@
 			</ul>
 			
 			<ul class="navbar-nav" ml-auto>
-				<form class="form-inline d-none d-sm-block" action="Blog.php" method="post">
+				<form class="form-inline d-none d-sm-block" action="Blog.php">
 					<div class="form-group">
-						<input class="form-control mr-2" type="text" name="Search" placeholder="Search" value="">
-						<button type="button" class="btn btn-primary" name="SearchButton"> Go </button>
+						<input class="form-control mr-2" type="text" name="Search" placeholder="Search here"value="">
+						<button  class="btn btn-primary" name="SearchButton">Go</button>
 						
 					</div>
 				</form>
@@ -79,9 +80,20 @@
 				
 				<?php 
 					$ConnectingDB;
+					if(isset($_GET["SearchButton"])){
+						$Search = $_GET["Search"];
+						$sql = "SELECT * FROM posts WHERE datetime LIKE :search OR title LIKE :search OR category LIKE :search OR post LIKE :search";
+						
+						$stmt = $ConnectingDB->prepare($sql);
+						$stmt->bindValue(':search','%'.$Search.'%');
+						$stmt->execute();
+						
+					}
+					else{
+						$sql = "SELECT * FROM posts ORDER BY id desc";
+						$stmt = $ConnectingDB->query($sql);
+					}
 					
-					$sql = "SELECT * FROM posts ORDER BY id desc";
-					$stmt = $ConnectingDB->query($sql);
 					while($DataRows = $stmt->fetch()){
 						$PostId = $DataRows["id"];
 						$DateTime = $DataRows["datetime"];
@@ -111,7 +123,7 @@
 							
 							?>
 						</p>
-						<a href="FullPost.php" style="float:right;">
+						<a href="FullPost.php?id=<?php echo $PostId ?>" style="float:right;">
 							<span class="btn btn-info"> Read More >></span>
 						</a>
 					</div>
