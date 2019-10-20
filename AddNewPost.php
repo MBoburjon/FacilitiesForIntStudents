@@ -1,6 +1,10 @@
 <?php require_once("Includes/DB.php"); ?>
 <?php require_once("Includes/Functions.php"); ?>
 <?php require_once("Includes/Sessions.php"); ?>
+<?php 
+	$_SESSION["TrackingUrl"] = $_SERVER["PHP_SELF"];
+	confirmLogin(); 
+?>
 <?php
 if(isset($_POST["Submit"])){
 	$PostTitle = $_POST["PostTitle"];
@@ -8,7 +12,7 @@ if(isset($_POST["Submit"])){
 	$Image = $_FILES["Image"]["name"];
 	$Target = "Upload/".basename($_FILES["Image"]["name"]);
 	$PostText = $_POST["PostDescription"];
-	$Admin = "bigboss";
+	$Admin = $_SESSION["UserName"];
 	
 	//Getting CurrentTime
 	date_default_timezone_set("Asia/Seoul");
@@ -23,7 +27,7 @@ if(isset($_POST["Submit"])){
 		$_SESSION["ErrorMessage"] = "Post title should be greater than 5 characters";
 		Redirect_to("AddNewPost.php"); 
 	}
-	elseif(strlen($PostText)>999){
+	elseif(strlen($PostText)>9999){
 		$_SESSION["ErrorMessage"] = "Post description should be less than 1000 characters";
 		Redirect_to("AddNewPost.php"); 
 	}

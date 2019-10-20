@@ -1,10 +1,15 @@
 <?php require_once("Includes/DB.php"); ?>
 <?php require_once("Includes/Functions.php"); ?>
 <?php require_once("Includes/Sessions.php"); ?>
+<?php 
+	$_SESSION["TrackingUrl"] = $_SERVER["PHP_SELF"];
+	confirmLogin(); 
+?>
 <?php
 if(isset($_POST["Submit"])){
 	$Category = $_POST["CategoryTitle"];
-	$Admin = "bigboss";
+	$Admin = $_SESSION["UserName"];
+	
 	
 	//Getting CurrentTime
 	date_default_timezone_set("Asia/Seoul");

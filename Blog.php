@@ -85,8 +85,12 @@
 					$ConnectingDB;
 					if(isset($_GET["SearchButton"])){
 						$Search = $_GET["Search"];
-						$sql = "SELECT * FROM posts WHERE datetime LIKE :search OR title LIKE :search OR category LIKE :search OR post LIKE :search";
-						
+						$sql = "SELECT * FROM posts 
+								WHERE datetime LIKE :search 
+								OR title LIKE :search 
+								OR category LIKE :search 
+								OR post LIKE :search";
+								
 						$stmt = $ConnectingDB->prepare($sql);
 						$stmt->bindValue(':search','%'.$Search.'%');
 						$stmt->execute();
@@ -126,7 +130,7 @@
 							
 							?>
 						</p>
-						<a href="FullPost.php?id=<?php echo $PostId ?>" style="float:right;">
+						<a href="FullPost.php?id=<?php echo htmlentities($PostId); ?>" style="float:right;">
 							<span class="btn btn-info"> Read More >></span>
 						</a>
 					</div>

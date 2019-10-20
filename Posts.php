@@ -1,6 +1,12 @@
 <?php require_once("Includes/DB.php"); ?>
 <?php require_once("Includes/Functions.php"); ?>
 <?php require_once("Includes/Sessions.php"); ?>
+
+<?php 
+	$_SESSION["TrackingUrl"] = $_SERVER["PHP_SELF"];
+	confirmLogin(); 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,7 +52,7 @@
 
 			</ul>
 			<ul class="navbar-nav" ml-auto>
-				<li class="navbar-itme"><a href="logout.php" class="nav-link"><i class="fas fa-user-times text-danger"></i> Log out</a></li>
+				<li class="navbar-itme"><a href="Logout.php" class="nav-link"><i class="fas fa-user-times text-danger"></i> Log out</a></li>
 			</ul>
 			</div>
 		</div>
@@ -60,6 +66,10 @@
 			<div class="row">
 				<div class="col-md-12">
 					<h1><i class="fas fa-blog" style="color:#27aae1;"></i> Blog Post </h1>
+					<?php 
+						echo ErrorMessage();
+						echo SuccessMessage();
+					?>
 				</div>
 				<div class="col-lg-3 mb-2">
 					<a href="AddNewPost.php" class="btn btn-primary btn-block">
@@ -72,7 +82,7 @@
 					</a>
 				</div>
 				<div class="col-lg-3 mb-2">
-					<a href="Admin.php" class="btn btn-warning btn-block">
+					<a href="Admins.php" class="btn btn-warning btn-block">
 						<i class="fas fa-edit"> Add New Admin </i>
 					</a>
 				</div>
@@ -154,11 +164,11 @@
 						<td><img src="Upload/<?php echo $Image ?>" width="170px;" height="50px"></td>
 						<td> Comments </td>
 						<td>
-							<a href="#"><span class="btn btn-warning"> Edit </span></a>
-							<a href="#"><span class="btn btn-danger"> Delete </span></a>					
+							<a href="EditPost.php?id=<?php echo $Id; ?>"><span class="btn btn-warning"> Edit </span></a>
+							<a href="DeletePost.php?id=<?php echo $Id; ?>"><span class="btn btn-danger"> Delete </span></a>					
 						</td>
 						<td> 
-							<a href="#"><span class="btn btn-primary"> Live Preview </span></a> 
+							<a href="FullPost.php?id=<?php echo $Id; ?>" target="_blank"><span class="btn btn-primary"> Live Preview </span></a> 
 						</td>
 					</tr>
 					</tbody>

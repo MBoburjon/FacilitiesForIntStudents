@@ -1,6 +1,10 @@
 <?php require_once("Includes/DB.php"); ?>
 <?php require_once("Includes/Functions.php"); ?>
 <?php require_once("Includes/Sessions.php"); ?>
+<?php 
+	$_SESSION["TrackingUrl"] = $_SERVER["PHP_SELF"];
+	confirmLogin(); 
+?>
 <?php
 
 $IdFromUrl = $_GET["id"];
