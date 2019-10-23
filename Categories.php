@@ -149,6 +149,55 @@ if(isset($_POST["Submit"])){
 						</div>
 					</div>
 				</form>
+				
+				<!-- Table list of categories -->
+				<h2>Existing Categories</h2>
+				<table class="table table-striped table-hover">
+					<thead class="thead-dark">
+						<tr>
+							<th>No. </th>
+							<th>Category Name </th>
+							<th>Creator Name </th>
+							<th>Date&Time </th>
+							<th>Delete</th>
+					
+						
+							
+						</tr>
+					</thead>
+					<?php 
+						$ConnectingDB;
+						$sql = "SELECT * FROM category ORDER BY id desc";
+						
+						$Execute = $ConnectingDB->query($sql);
+						
+						$SrNo = 0;
+						while($DataRows = $Execute->fetch()){
+							$CategoryId = $DataRows["id"];
+							$CategoryName = $DataRows["title"];
+							$DateTime = $DataRows["datetime"];
+							$Creator = $DataRows["author"];
+							$SrNo++;
+						/*if(strlen($CommentorName) > 7){
+							$CommentorName = substr($Category, 0, 7)."...";
+						}
+						if(strlen($CommentDate) > 11){
+							$CommentDate = substr($CommentDate, 0, 11)."...";
+						}*/
+						
+					?>
+					<tbody>
+						<tr>
+							<td><?php echo htmlentities($SrNo); ?></td>
+							<td><?php echo htmlentities($CategoryName); ?></td>
+							<td><?php echo htmlentities($Creator); ?></td>
+							<td><?php echo htmlentities($DateTime); ?></td>
+							<td><a class="btn btn-danger" href="DeleteCategory.php?id=<?php echo $CategoryId; ?>">Delete</a></td>
+							
+						</tr>
+					</tbody>
+						<?php } ?>
+				</table>
 			</div>
 		</div>
 	</section>

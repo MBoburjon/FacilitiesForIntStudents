@@ -91,7 +91,7 @@
 				?>
 				<div class="card bg-secondary text-light">
 					<div class="card-header">
-						<h4>Welcome Back ! </h4>
+						<h4>Welcome ! </h4>
 					</div>
 						<div class="card-body bg-dark">
 		

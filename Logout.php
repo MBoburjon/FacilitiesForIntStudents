@@ -7,9 +7,6 @@
 	$_SESSION["UserId"] = null;
 	$_SESSION["UserName"] = null;
 	session_destroy();
-	
 	Redirect_to("Login.php");
 	
-	
-
 ?>
