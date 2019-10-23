@@ -116,8 +116,14 @@
 					<img src="Upload/<?php echo $Image; ?>" style="max-height:450px;" class="image-fluid card-img-top"/>
 					<div class="card-body">
 						<h4 class="card-title"><?php echo htmlentities($PostTitle) ?></h4>
-						<small class="text-muted">Written by <?php echo htmlentities($Author); ?> On <?php echo htmlentities($DateTime); ?></small>
-						<span style="float:right;" class="badge badge-dark text-light">Comments 20</span>
+						<small class="text-muted">
+							Category: <span class="font-weight-bold"><?php echo htmlentities($Category); ?></span>
+							& Written by <span class="font-weight-bold"><?php echo htmlentities($Author); ?></span>
+							On <span class="font-weight-bold"><?php echo htmlentities($DateTime); ?></span>
+						</small>
+						<span style="float:right;" class="badge badge-dark text-light">Comments
+							<?php CountApproved($PostId); ?>
+						</span>
 						
 						<hr>
 						<p class="card-text">

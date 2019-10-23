@@ -17,7 +17,7 @@
 	<link rel="stylesheet" href="CSS/Styles.css">
 	
 	
-	<title>Posts</title>
+	<title>Dashboard</title>
 </head>
 <body>
 	<!-- Navbar -->
@@ -65,7 +65,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<h1><i class="fas fa-blog" style="color:#27aae1;"></i> Blog Post </h1>
+					<h1><i class="fas fa-cog" style="color:#27aae1;"></i> Dashboard					</h1>
 					<?php 
 						echo ErrorMessage();
 						echo SuccessMessage();
@@ -101,93 +101,113 @@
 	<!-- Main Area -->
 	<section class="container py-2 mb-4">
 		<div class="row">
-			<div class="col-lg-12">
+			<?php 
+				echo ErrorMessage();
+				echo SuccessMessage();
+			?>
+			<!-- left Side Area -->
+			<div class="col-lg-2 d-none d-md-block">
+				<div class="card text-center bg-dark text-white mb-3">
+					<div class="card-body">
+						<h1 class="lead">Posts</h1>
+						<h4 class="display-5">
+							<i class="fab fa-readme"></i>
+							<?php 
+								TotalPosts();
+							?>
+						</h4>
+					</div>
+				</div>
+				<div class="card text-center bg-dark text-white mb-3">
+					<div class="card-body">
+						<h1 class="lead">Categories</h1>
+						<h4 class="display-5">
+							<i class="fas fa-folder"></i>
+							<?php 
+								TotalCategories();
+							?>
+						</h4>
+					</div>
+				</div>
+				<div class="card text-center bg-dark text-white mb-3">
+					<div class="card-body">
+						<h1 class="lead">Admins</h1>
+						<h4 class="display-5">
+							<i class="fas fa-users"></i>
+							<?php 
+								TotalAdmins();
+							?>
+						</h4>
+					</div>
+				</div>
+				<div class="card text-center bg-dark text-white mb-3">
+					<div class="card-body">
+						<h1 class="lead">Comments</h1>
+						<h4 class="display-5">
+							<i class="fas fa-comments"></i>
+							<?php 
+								TotalComments();
+							?>
+						</h4>
+					</div>
+				</div>
+			</div>
+			<!-- End of left Side Area -->
+			
+			<!-- right Side Area -->
+			<div class="col-lg-10">
+				<h1> Top Posts </h1>
 				<table class="table table-striped table-hover">
 					<thead class="thead-dark">
-					<tr>
-						<th>#</th>
-						<th>Title</th>
-						<th>Category</th>
-						<th>Date&Time</th>
-						<th>Author</th>
-						<th>Banner</th>
-						<th>Comments</th>
-						<th>Action</th>
-						<th>Live Preview</th>
-					</tr>
+						<tr>
+							<th>No.</th>
+							<th>Title</th>
+							<th>Date&Time</th>
+							<th>Author</th>
+							<th>Comments</th>
+							<th>Details</th>
+						</tr>
 					</thead>
 					<?php
+						$SrNo = 0;
 						$ConnectingDB;
-						$sql = "SELECT * FROM posts";
+						$sql = "SELECT * FROM posts ORDER BY id desc LIMIT 0,5";
 						$stmt = $ConnectingDB->query($sql);
-						$iter = 0;
-						while ($DataRows = $stmt->fetch()){
-							$Id = $DataRows["id"];
+						while($DataRows = $stmt->fetch()){
+							$PostId = $DataRows["id"];
 							$DateTime = $DataRows["datetime"];
-							$PostTitle = $DataRows["title"];
-							$Category = $DataRows["category"];
-							$Admin = $DataRows["author"];
-							$Image = $DataRows["image"];
-							$PostText = $DataRows["post"];
-						$iter++;
-							
+							$Title = $DataRows["title"];
+							$Author = $DataRows["author"];
+							$SrNo++;
 						
 					?>
 					<tbody>
-					<tr>
-						<td><?php echo $iter ?></td>
-						<td>
-							<?php if(strlen($PostTitle) > 20){
-								$PostTitle = substr($PostTitle, 0, 10)."...";
-							}
-							echo $PostTitle ?>
-						</td>
-						<td>
-							<?php if(strlen($Category) > 7){
-								$Category = substr($Category, 0, 7)."...";
-							}
-							echo $Category ?>
-						</td>
-						<td>
-							<?php if(strlen($DateTime) > 11){
-								$DateTime = substr($DateTime, 0, 11)."...";
-							}
-							echo $DateTime ?>
-						</td>
-						<td>
-							<?php if(strlen($Admin) > 6){
-								$Admin = substr($Admin, 0, 6)."...";
-							}
-							echo $Admin ?>
-						
-						</td>
-						<td><img src="Upload/<?php echo $Image ?>" width="170px;" height="50px"></td>
-						<td>
+						<tr>
+							<td><?php echo htmlentities($SrNo); ?></td>
+							<td><?php echo htmlentities($Title); ?></td>
+							<td><?php echo htmlentities($DateTime); ?></td>
+							<td><?php echo htmlentities($Author); ?></td>
+							<td>
 								<span class="badge badge-success">
 									<?php 
 										
-										CountApproved($Id);
+										CountApproved($PostId);
 									?>
 								</span>
 								<span class="badge badge-danger">
 									<?php 
-										Dis_Approved($Id);
+										Dis_Approved($PostId);
 									?>
 								</span>
 							</td>
-						<td>
-							<a href="EditPost.php?id=<?php echo $Id; ?>"><span class="btn btn-warning"> Edit </span></a>
-							<a href="DeletePost.php?id=<?php echo $Id; ?>"><span class="btn btn-danger"> Delete </span></a>					
-						</td>
-						<td> 
-							<a href="FullPost.php?id=<?php echo $Id; ?>" target="_blank"><span class="btn btn-primary"> Live Preview </span></a> 
-						</td>
-					</tr>
+							<td><a href="FullPost.php?id=<?php echo $PostId; ?>"><span class="btn btn-info">Preview</span></a></td>
+						</tr>
 					</tbody>
-					<?php } ?>
+						<?php } ?>
 				</table>
-						
 			</div>
+			<!-- End of right Side Area -->
+			
 		</div>
 	</section>
 	
