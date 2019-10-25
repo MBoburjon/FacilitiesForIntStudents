@@ -96,6 +96,17 @@
 						$stmt->execute();
 						
 					}
+					elseif(isset($_GET["page"])){
+						$Page = $_GET["page"];
+						if($Page == 0 || $Page < 0){
+							$ShowPostFrom = 0;
+						}else{
+							$ShowPostFrom = ($Page*5) - 5;
+						}
+						$sql = "SELECT * FROM posts ORDER BY id desc LIMIT $ShowPostFrom,5";
+						$stmt = $ConnectingDB->query($sql);
+						
+					}
 					else{
 						$sql = "SELECT * FROM posts ORDER BY id desc";
 						$stmt = $ConnectingDB->query($sql);
@@ -142,6 +153,61 @@
 					</div>
 				</div>
 					<?php } ?>
+				<!-- Pagination -->
+					<nav>
+						<ul class="pagination pagination-lg">
+						<!-- Backward Button -->
+							<?php 
+								if(isset($_GET["page"])){
+									if($Page > 1){
+								
+							?>
+								<li class="page-item">
+									<a href="Blog.php?page= <?php echo $Page-1 ?>" class="page-link">&laquo</a>
+								</li>
+								
+							<?php } }?>
+							<!-- end of Backward Button -->
+							<?php
+								global $ConnectingDB;
+								$sql = "SELECT COUNT(*) FROM posts";
+								$stmt = $ConnectingDB->query($sql);
+								
+								$RowPagination = $stmt->fetch();
+								$TotalPosts = array_shift($RowPagination);
+								
+								$PostPagination = ceil($TotalPosts/5);
+								
+								for($i = 1; $i <= $PostPagination; $i++){
+									if(isset($_GET["page"])){
+										if($i == $Page){
+								?>
+								
+									<li class="page-item active">
+										<a href="Blog.php?page=<?php echo htmlentities($i); ?>" class="page-link"><?php echo htmlentities($i); ?></a>
+									</li>
+								 
+								<?php }else{ ?>
+									<li class="page-item active">
+										<a href="Blog.php?page=<?php echo htmlentities($i); ?>" class="page-link"><?php echo htmlentities($i); ?></a>
+									</li>
+									
+								<?php } } } ?>
+							<!-- Forward Button -->
+							<?php 
+								if(isset($_GET["page"])){
+									if($Page+1 <= $PostPagination){
+								
+							?>
+								<li class="page-item">
+									<a href="Blog.php?page= <?php echo $Page+1 ?>" class="page-link">&raquo;</a>
+								</li>
+								
+							<?php } }?>
+							<!-- end of Forward Button -->
+						</ul>
+					</nav>
+				<!-- end of Pagination -->
 			</div>
 					
 			<!-- End of Main Area -->
