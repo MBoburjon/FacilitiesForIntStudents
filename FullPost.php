@@ -258,9 +258,99 @@ if(isset($_POST["Submit"])){
 			<!-- End of Main Area -->
 			
 			
+			
 			<!-- Side Area -->
 			<div class="col-sm-4">
-			
+				<div class="card mt-4">
+					<div class="card-body">
+						<img src="Images/blog.jpg" class="d-block img-fluid" alt="">
+							<div class="text-center">
+								“Start each day with a positive thought and a grateful heart.” – Roy T. Bennett
+							</div>
+					</div>
+				</div>
+				<br>
+				
+				<div class="card">
+					<div class="card-header bg-dark text-light">
+						<h2 class="lead"><Sign Up !</h2>
+					</div>
+					<div class="card-body">
+						<button type="button" class="btn btn-success btn-block text-center text-white mb-4" name="button"> Join the Form</button>
+						<button type="button" class="btn btn-danger btn-block text-center text-white mb-4" name="button"> Login </button>
+						<div class="input-group mb-3">
+							<input type="text" class="form-control" name"" placeholder="Enter your email" value="">
+							<div class="input-group-append">
+								<button type="button" class="btn btn-primary btn-sm text-center text-white" name="button">Subscribe now</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br>
+				
+				<div class="card">
+					<div class="card-header bg-primary text-light">
+						<h2 class="lead">Categories</h2>
+					</div>
+						<div class="card-body">
+							<?php
+								global $ConnectingDB;
+								$sql = "SELECT * FROM category ORDER BY id desc";
+								$stmt = $ConnectingDB->query($sql);
+								
+								while($DataRows = $stmt->fetch()){
+									$CategoryId = $DataRows["id"];
+									$CategoryName = $DataRows["title"];
+									
+								
+							?>
+							
+							<a href="Blog.php?category=<?php echo $CategoryName; ?>"><span class="heading"> <?php echo htmlentities($CategoryName); ?> </span></a><br>
+							
+								<?php } ?>
+						
+						</div>
+				</div>
+				<div class="card">
+					<div class="card-header bg-info text-white">
+						<h2 class="lead"> Recent Posts </h2>
+						
+					</div>
+					<div class="card-body">
+						<?php 
+							global $ConnectingDB;
+							$sql = "SELECT * FROM posts ORDER BY id desc LIMIT 0,5";
+							$stmt = $ConnectingDB->query($sql);
+							while($DataRows = $stmt->fetch()){
+								$PostId = $DataRows["id"];
+								$DateTime = $DataRows["datetime"];
+								$PostTitle = $DataRows["title"];
+								$Category = $DataRows["category"];
+								$Author = $DataRows["author"];
+								$Image = $DataRows["image"];
+								$PostDescription = $DataRows["post"];	
+							
+							if(strlen($PostTitle) > 15){
+									$PostTitle = substr($PostTitle, 0, 15)."...";
+									
+								}
+							
+						?>
+						<div class="media">
+							
+							<img src="Upload/<?php echo htmlentities($Image); ?>" class="d-block img-fluid align-self-start" width="90" height="94" alt="">
+							<div class="media-body ml-2">
+								<a href="FullPost.php?id=<?php echo htmlentities($PostId); ?>" target="_blank">
+									<h6 class="lead"><?php echo htmlentities($PostTitle); ?></h6>
+								</a>
+								<p class="small"><?php echo htmlentities($DateTime); ?></p>
+							</div>
+							
+						</div>
+						<hr>
+							<?php } ?>
+					</div>
+				</div>
 			</div>
 			<!-- End of Side Area -->
 			

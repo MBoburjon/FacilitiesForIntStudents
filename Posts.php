@@ -24,31 +24,24 @@
 	<div style="height:10px; background:#27aae1;"></div>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container">
-			<a href="#" class="navbar-brand">ISSPM.com</a>
+			<a href="Blog.php" class="navbar-brand">ISSPM.com</a>
 			<button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapseCMS">
 				<span class="navbar-toggler-icon"><span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarCollapseCMS">
 			<ul class="navbar-nav mr-auto">
 				<li class="navbar-item">
-					<a href="Home.php" class="nav-link"><i class="fas fa-home text-success"></i> Home</a>
+					<a href="Posts.php" class="nav-link"><i class="fas fa-home text-success"></i> Home</a>
 				</li>
 				<li class="navbar-item">
-					<a href="NewDis.php" class="nav-link">News/DiscussionBoard</a>
-				</li>
-				<li class="navbar-item">
-					<a href="Universities.php" class="nav-link">Universities</a>
-				</li>
-				<li class="navbar-item">
-					<a href="Transportation.php" class="nav-link">Transportation</a>
+					<a href="Dashboard.php" class="nav-link">Dashboard</a>
 				</li>
 				
 				<li class="navbar-item">
-					<a href="Accommodations.php" class="nav-link">Accomodations</a>
+					<a href="Blog.php" class="nav-link">Blog page</a>
 				</li>
-				<li class="navbar-item">
-					<a href="JobPosts.php" class="nav-link">Job Posts</a>
-				</li>
+				
+				
 
 			</ul>
 			<ul class="navbar-nav" ml-auto>

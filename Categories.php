@@ -77,23 +77,14 @@ if(isset($_POST["Submit"])){
 			<div class="collapse navbar-collapse" id="navbarCollapseCMS">
 			<ul class="navbar-nav mr-auto">
 				<li class="navbar-item">
-					<a href="Home.php" class="nav-link"><i class="fas fa-home text-success"></i> Home</a>
+					<a href="Posts.php" class="nav-link"><i class="fas fa-home text-success"></i> Home</a>
 				</li>
 				<li class="navbar-item">
-					<a href="NewDis.php" class="nav-link">News/DiscussionBoard</a>
-				</li>
-				<li class="navbar-item">
-					<a href="Universities.php" class="nav-link">Universities</a>
-				</li>
-				<li class="navbar-item">
-					<a href="Transportation.php" class="nav-link">Transportation</a>
+					<a href="Dashboard.php" class="nav-link">Dashboard</a>
 				</li>
 				
 				<li class="navbar-item">
-					<a href="Accommodations.php" class="nav-link">Accomodations</a>
-				</li>
-				<li class="navbar-item">
-					<a href="JobPosts.php" class="nav-link">Job Posts</a>
+					<a href="Blog.php" class="nav-link">Blog page</a>
 				</li>
 
 			</ul>
